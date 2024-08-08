@@ -21,7 +21,7 @@ Table of Contents
 
 **NSGFlex** is an efficient open-source library designed for cross-platform vectorization, capable of performing high-performance approximate nearest neighbor searches (ANNS) on any platform equipped with a G++ compiler, including x86, ARM, and other architectures. 
 
-This implementation is notable for its portability and flexibility, designed to operate seamlessly across different computing environments without requiring any external dependencies. **With just a dataset and a G++ compiler**, users can build NSG indices from scratch and conduct efficient ANNS searches across different platforms. This streamlined setup enables developers to quickly deploy and use NSGFlex, making it ideal for anyone learning nearest neighbor search solutions, even those using MacBook computers with M-series chips.
+This implementation is notable for its portability and flexibility, designed to operate seamlessly across different computing environments without requiring any external dependencies. **With just a dataset and a G++ compiler**, users can build NSG indices from scratch and conduct efficient ANNS searches across different platforms. This streamlined setup enables developers to quickly deploy and use NSGFlex, making it ideal for anyone learning nearest neighbor search solutions, even those using MacBook air with M-series chips.
 
 It implements the algorithm described in the PVLDB paper - [Fast Approximate Nearest Neighbor Search With The Navigating Spread-out Graphs](http://www.vldb.org/pvldb/vol12/p461-fu.pdf). 
 
