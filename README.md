@@ -19,8 +19,7 @@ Table of Contents
 
 ## Introduction
 
-NSGFlex is an efficient open-source library designed for cross-architecture vectorization, supporting high-performance approximate nearest neighbor search (ANNS) on both x86 and ARM platforms. It implements the algorithm of our PVLDB paper - [Fast Approximate Nearest Neighbor Search With The Navigating Spread-out Graphs](http://www.vldb.org/pvldb/vol12/p461-fu.pdf).
-NSG has been intergrated into the search engine of Taobao (Alibaba Group) for billion scale ANNS in E-commerce scenario.
+NSGFlex is an efficient open-source library designed for cross-architecture vectorization, supporting high-performance approximate nearest neighbor search (ANNS) on both x86 and ARM platforms. It implements the algorithm of the PVLDB paper - [Fast Approximate Nearest Neighbor Search With The Navigating Spread-out Graphs](http://www.vldb.org/pvldb/vol12/p461-fu.pdf).
 
 ## Building Instruction
 
