@@ -19,17 +19,22 @@ Table of Contents
 
 ## Introduction
 
-NSGFlex is an efficient open-source library designed for cross-architecture vectorization, supporting high-performance approximate nearest neighbor search (ANNS) on both x86 and ARM platforms. It implements the algorithm of our PVLDB paper - [Fast Approximate Nearest Neighbor Search With The Navigating Spread-out Graphs](http://www.vldb.org/pvldb/vol12/p461-fu.pdf).
-NSG has been intergrated into the search engine of Taobao (Alibaba Group) for billion scale ANNS in E-commerce scenario.
+**NSGFlex** is an efficient open-source library uniquely designed for cross-architecture vectorization, enabling high-performance approximate nearest neighbor search (ANNS) on any platform equipped with a G++ compiler, be it x86, ARM, or others. It implements the algorithm described in our PVLDB paper - [Fast Approximate Nearest Neighbor Search With The Navigating Spread-out Graphs](http://www.vldb.org/pvldb/vol12/p461-fu.pdf). This implementation is notable for its portability and flexibility, designed to operate seamlessly across different computing environments without requiring any external dependencies.
+
+NSGFlex is built to be a stand-alone solution that integrates easily into existing systems, promoting an easier setup and immediate usability. By eliminating the need for additional dependencies, NSGFlex ensures a straightforward installation process and reduces potential conflicts or compatibility issues with other software, making it an ideal choice for developers seeking an efficient and reliable ANNS tool.
+
+### Highlights of NSGFlex:
+- **Cross-Platform Efficiency**: Optimized for both x86 and ARM architectures, NSGFlex delivers high-speed performance and precision in nearest neighbor calculations across different hardware setups.
+- **No External Dependencies**: NSGFlex does not rely on any external libraries or frameworks, simplifying its integration into any project.
+
+With its comprehensive documentation and active community support, NSGFlex aims to provide a versatile and powerful solution for developers and researchers involved in high-dimensional data analysis and related fields.
 
 ## Building Instruction
 
 ### Prerequisites
 
-+ GCC 11+ with OpenMP
++ GCC 11+
 + CMake 3.22+
-+ Boost 1.55+
-+ [TCMalloc](http://goog-perftools.sourceforge.net/doc/tcmalloc.html)
 
 
 ### Compile On Ubuntu/Debian
@@ -37,7 +42,7 @@ NSG has been intergrated into the search engine of Taobao (Alibaba Group) for bi
 1. Install Dependencies:
 
 ```shell
-$ sudo apt-get install g++ cmake libboost-dev libgoogle-perftools-dev
+$ sudo apt-get install g++ cmake
 ```
 
 2. Compile NSGFlex:
