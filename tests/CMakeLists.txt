@@ -1,5 +1,8 @@
 set(CMAKE_CXX_STANDARD 11)
 
+add_executable(test_nndescent test_nndescent.cpp)
+target_link_libraries(test_nndescent ${PROJECT_NAME})
+
 add_executable(test_nsg_index test_nsg_index.cpp)
 target_link_libraries(test_nsg_index ${PROJECT_NAME})
 

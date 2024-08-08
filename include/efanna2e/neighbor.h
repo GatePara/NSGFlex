@@ -84,6 +84,11 @@ struct nhood{
   }
 };
 
+struct LockNeighbor{
+  std::mutex lock;
+  std::vector<Neighbor> pool;
+};
+
 struct SimpleNeighbor{
   unsigned id;
   float distance;

@@ -19,7 +19,11 @@ Table of Contents
 
 ## Introduction
 
-**NSGFlex** is an efficient open-source library uniquely designed for cross-architecture vectorization, enabling high-performance approximate nearest neighbor search (ANNS) on any platform equipped with a G++ compiler, be it x86, ARM, or others. It implements the algorithm described in our PVLDB paper - [Fast Approximate Nearest Neighbor Search With The Navigating Spread-out Graphs](http://www.vldb.org/pvldb/vol12/p461-fu.pdf). This implementation is notable for its portability and flexibility, designed to operate seamlessly across different computing environments without requiring any external dependencies.
+**NSGFlex** is an efficient open-source library designed for cross-platform vectorization, capable of performing high-performance approximate nearest neighbor searches (ANNS) on any platform equipped with a G++ compiler, including x86, ARM, and other architectures. 
+
+This implementation is notable for its portability and flexibility, designed to operate seamlessly across different computing environments without requiring any external dependencies. **With just a dataset and a G++ compiler**, users can build NSG indices from scratch and conduct efficient ANNS searches across different platforms. This streamlined setup enables developers to quickly deploy and use NSGFlex, making it ideal for anyone learning nearest neighbor search solutions, even those using MacBook computers with M-series chips.
+
+It implements the algorithm described in the PVLDB paper - [Fast Approximate Nearest Neighbor Search With The Navigating Spread-out Graphs](http://www.vldb.org/pvldb/vol12/p461-fu.pdf). 
 
 
 ### Highlights of NSGFlex:
@@ -66,7 +70,19 @@ To use NSG for ANNS, an NSG index must be built first. Here are the instructions
 
 Firstly, we need to prepare a kNN graph.
 
-We suggest you use our [efanna\_graph](https://github.com/ZJULearning/efanna\_graph) to build this kNN graph. But you can also use any alternatives you like, such as KGraph or faiss.
+* kNN graph building with nndescent:    
+```shell
+cd build/tests/
+./test_nndescent data_file save_graph K L iter S R
+```
+ 
++ `data_file` is the path of the origin data.
++ `save_graph` is the path of the kNN graph to be saved.
++ `K` is the 'K' of kNN graph.
++ `L` is the parameter controlling the graph quality, larger is more accurate but slower, no smaller than K.
++ `iter` is the parameter controlling the iteration times, iter usually < 30.
++ `S` is the parameter contollling the graph quality, larger is more accurate but slower.
++ `R` is the parameter controlling the graph quality, larger is more accurate but slower.
 
 #### Step 2. Convert kNN Graph to NSG
 
@@ -74,8 +90,8 @@ Secondly, we will convert the kNN graph to our NSG index.
 
 You can use our demo code to achieve this converstion as follows:
 ```shell
-$ cd build/tests/
-$ ./test_nsg_index DATA_PATH KNNG_PATH L R C NSG_PATH
+cd build/tests/
+./test_nsg_index DATA_PATH KNNG_PATH L R C NSG_PATH
 ```
 
 + `DATA_PATH` is the path of the base data in `fvecs` format.
@@ -91,8 +107,8 @@ Here are the instructions of how to use NSG index for searching.
 
 You can use our demo code to perform kNN searching as follows:
 ```shell
-$ cd build/tests/
-$ ./test_nsg_optimized_search DATA_PATH QUERY_PATH NSG_PATH SEARCH_L SEARCH_K RESULT_PATH
+cd build/tests/
+./test_nsg_optimized_search DATA_PATH QUERY_PATH NSG_PATH SEARCH_L SEARCH_K RESULT_PATH
 ```
 
 + `DATA_PATH` is the path of the base data in `fvecs` format.
@@ -130,8 +146,8 @@ We use [efanna_graph](https://github.com/ZJULearning/efanna_graph) to build the 
 
 + Commands:
 ```shell
-$ efanna_graph/tests/test_nndescent sift.fvecs sift_200nn.graph 200 200 10 10 100    # SIFT1M
-$ efanna_graph/tests/test_nndescent gist.fvecs gist_400nn.graph 400 400 12 15 100    # GIST1M
+NSGFlex/build/tests/test_nndescent sift.fvecs sift_200nn.graph 200 200 10 10 100    # SIFT1M
+NSGFlex/build/tests/test_nndescent gist.fvecs gist_400nn.graph 400 400 12 15 100    # GIST1M
 ```
 
 #### Step 2. Convert kNN Graph to NSG
@@ -145,8 +161,8 @@ $ efanna_graph/tests/test_nndescent gist.fvecs gist_400nn.graph 400 400 12 15 10
 
 + Commands:
 ```shell
-$ NSGFlex/build/tests/test_nsg_index sift.fvecs sift_200nn.graph 40 50 500 sift.nsg        # SIFT1M
-$ NSGFlex/build/tests/test_nsg_index gist.fvecs gist_400nn.graph 60 70 500 gist.nsg        # GIST1M
+NSGFlex/build/tests/test_nsg_index sift.fvecs sift_200nn.graph 40 50 500 sift.nsg        # SIFT1M
+NSGFlex/build/tests/test_nsg_index gist.fvecs gist_400nn.graph 60 70 500 gist.nsg        # GIST1M
 ```
 
 ## Reference
