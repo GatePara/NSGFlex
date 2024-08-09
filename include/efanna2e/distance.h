@@ -224,6 +224,27 @@ namespace efanna2e{
       _mm_storeu_ps(unpack, sum);
       result += unpack[0] + unpack[1] + unpack[2] + unpack[3];
 #else
+#ifdef USE_NEON
+  #define NEON_DOT(addr1, addr2, dest, tmp1, tmp2) \
+      tmp1 = vld1q_f32(addr1);\
+      tmp2 = vld1q_f32(addr2);\
+      dest = vfmaq_f32(dest, tmp1, tmp2);
+
+  float32x4_t sum_vec = vdupq_n_f32(0);
+  float32x4_t vec1,vec2;
+  unsigned i = 0;
+  const float *l = a;
+  const float *r = b;
+   for (; i + 4 <= size; i += 4) {
+        NEON_DOT(l+i,r+i,sum_vec,vec1,vec2);
+    }
+  float sum = vaddvq_f32(sum_vec);
+  for (; i < size; ++i) {
+        float dot = l[i] * r[i];
+        sum += dot;
+    }
+  result = sum;
+#else
 
       float dot0, dot1, dot2, dot3;
       const float* last = a + size;
@@ -243,6 +264,7 @@ namespace efanna2e{
       while (a < last) {
           result += *a++ * *b++;
       }
+#endif
 #endif
 #endif
 #endif
@@ -314,6 +336,26 @@ namespace efanna2e{
     _mm_storeu_ps(unpack, sum);
     result += unpack[0] + unpack[1] + unpack[2] + unpack[3];
 #else
+#ifdef USE_NEON
+  #define NEON_NORM(addr, dest, tmp) \
+      tmp = vld1q_f32(addr);\
+      dest = vfmaq_f32(dest, tmp, tmp);
+
+  float32x4_t sum_vec = vdupq_n_f32(0);
+  float32x4_t vec;
+  unsigned i = 0;
+  const float *l = a;
+
+   for (; i + 4 <= size; i += 4) {
+        NEON_NORM(l+i,sum_vec,vec);
+    }
+  float sum = vaddvq_f32(sum_vec);
+  for (; i < size; ++i) {
+        float norm = l[i] * l[i];
+        sum += norm;
+    }
+  result = sum;
+#else
     float dot0, dot1, dot2, dot3;
     const float* last = a + size;
     const float* unroll_group = last - 3;
@@ -332,6 +374,7 @@ namespace efanna2e{
         result += (*a) * (*a);
         a++;
     }
+#endif
 #endif
 #endif
 #endif
