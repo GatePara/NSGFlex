@@ -23,7 +23,7 @@ namespace efanna2e{
 
     class DistanceL2 : public Distance{
     public:
-        float compare(const float* a, const float* b, unsigned size) const {
+        inline float compare(const float* a, const float* b, unsigned size) const {
             float result = 0;
 
 #ifdef __GNUC__
@@ -101,6 +101,28 @@ namespace efanna2e{
 
 //nomal distance
 #else
+#ifdef USE_NEON
+  #define NEON_L2SQR(addr1, addr2, dest, tmp1, tmp2) \
+      tmp1 = vld1q_f32(addr1);\
+      tmp2 = vld1q_f32(addr2);\
+      tmp1 = vsubq_f32(tmp1, tmp2);\
+      dest = vfmaq_f32(dest, tmp1, tmp1);
+
+  float32x4_t sum_vec = vdupq_n_f32(0);
+  float32x4_t vec1,vec2;
+  unsigned i = 0;
+  const float *l = a;
+  const float *r = b;
+   for (; i + 4 <= size; i += 4) {
+        NEON_L2SQR(l+i,r+i,sum_vec,vec1,vec2);
+    }
+  float sum = vaddvq_f32(sum_vec);
+  for (; i < size; ++i) {
+        float diff = l[i] - r[i];
+        sum += diff * diff;
+    }
+  result = sum;
+#else
 
       float diff0, diff1, diff2, diff3;
       const float* last = a + size;
@@ -124,7 +146,7 @@ namespace efanna2e{
 #endif
 #endif
 #endif
-
+#endif
             return result;
         }
     };
