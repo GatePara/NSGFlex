@@ -44,17 +44,26 @@ NSGFlex implements the algorithm described in the PVLDB paper - [Fast Approximat
 1. Install Dependencies:
 
 ```shell
-$ sudo apt-get install g++ cmake
+sudo apt-get install g++ cmake
 ```
 
 2. Compile NSGFlex:
 
+First, you should clone the code to your computer.
 ```shell
-$ git clone https://github.com/GatePara/NSGFlex.git
-$ cd NSGFlex/
-$ mkdir build/ && cd build/
-$ cmake -DCMAKE_BUILD_TYPE=Release ..
-$ make -j
+git clone https://github.com/GatePara/NSGFlex.git
+cd NSGFlex/
+```
+Then you can use auto-build script to compile NSGFlex:
+```shell
+bash build.sh
+```
+
+Or you can do it manually.
+```shell
+mkdir build/ && cd build/
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make -j
 ```
 
 ## Usage
