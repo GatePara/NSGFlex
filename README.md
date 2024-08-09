@@ -191,7 +191,8 @@ NSGFlex/build/tests/test_nsg_index gist.fvecs gist_400nn.graph 60 70 500 gist.ns
 
 ## TODO
 
-- [ ] Add arm neon support
+- [*] Add neon fp32 simd speedup
+- [ ] Support apple m-series chip
 
 ## License
 
