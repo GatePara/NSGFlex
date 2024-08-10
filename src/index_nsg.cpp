@@ -528,6 +528,15 @@ namespace efanna2e
   void IndexNSG::Search(const float *query, const float *x, size_t K,
                         const Parameters &parameters, unsigned *indices)
   {
+
+#ifdef USE_SSE
+      _mm_prefetch(&final_graph_[ep_], _MM_HINT_T0);
+#else
+#ifdef COMPILER_GCC
+      __builtin_prefetch(&final_graph_[ep_], 0, 0); 
+#endif
+#endif
+
     const unsigned L = parameters.Get<unsigned>("L_search");
     data_ = x;
     std::vector<Neighbor> retset(L + 1);
@@ -553,10 +562,24 @@ namespace efanna2e
       init_ids[tmp_l] = id;
       tmp_l++;
     }
+#ifdef USE_SSE
+      _mm_prefetch(data_ + dimension_ * (init_ids[0]), _MM_HINT_T0);
+#else
+#ifdef COMPILER_GCC
+      __builtin_prefetch(data_ + dimension_ * (init_ids[0]), 0, 2); 
+#endif
+#endif
 
     for (unsigned i = 0; i < init_ids.size(); i++)
     {
       unsigned id = init_ids[i];
+#ifdef USE_SSE
+      _mm_prefetch(data_ + dimension_ * (id+1), _MM_HINT_T0);
+#else
+#ifdef COMPILER_GCC
+      __builtin_prefetch(data_ + dimension_ * (id+1), 0, 0); 
+#endif
+#endif
       float dist =
           distance_->compare(data_ + dimension_ * id, query, (unsigned)dimension_);
       retset[i] = Neighbor(id, dist, true);
@@ -573,9 +596,25 @@ namespace efanna2e
       {
         retset[k].flag = false;
         unsigned n = retset[k].id;
+#ifdef USE_SSE
+      _mm_prefetch(&final_graph_[n], _MM_HINT_T0);
+      _mm_prefetch(data_ + dimension_ * final_graph_[n][0], _MM_HINT_T0);
+#else
+#ifdef COMPILER_GCC
+      __builtin_prefetch(&final_graph_[n], 0, 0); 
+      __builtin_prefetch(data_ + dimension_ * final_graph_[n][0], 0, 0); 
+#endif
+#endif
 
         for (unsigned m = 0; m < final_graph_[n].size(); ++m)
         {
+#ifdef USE_SSE
+      _mm_prefetch(data_ + dimension_ * final_graph_[n][m+1], _MM_HINT_T0);
+#else
+#ifdef COMPILER_GCC
+      __builtin_prefetch(data_ + dimension_ * final_graph_[n][m+1], 0, 0); 
+#endif
+#endif
           unsigned id = final_graph_[n][m];
           if (flags[id])
             continue;

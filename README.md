@@ -116,7 +116,7 @@ Here are the instructions of how to use NSG index for searching.
 You can use our demo code to perform kNN searching as follows:
 ```shell
 cd build/tests/
-./test_nsg_optimized_search DATA_PATH QUERY_PATH NSG_PATH SEARCH_L SEARCH_K RESULT_PATH
+./test_nsg_search DATA_PATH QUERY_PATH NSG_PATH SEARCH_L SEARCH_K RESULT_PATH
 ```
 
 + `DATA_PATH` is the path of the base data in `fvecs` format.
@@ -126,7 +126,13 @@ cd build/tests/
 + `SEARCH_K` controls the number of result neighbors we want to query.
 + `RESULT_PATH` is the query results in `ivecs` format.
 
-There is another program in `tests/` folder named `test_nsg_search`. The parameters of `test_nsg_search` are exactly same as `test_nsg_optimized_search`. `test_nsg_search` is slower than `test_nsg_optimized_search` but requires less memory. In the situations memory consumption is extremely important, one can use `test_nsg_search` instead of `test_nsg_optimized_search`.
+The `test_nsg_optimized_search` method decomposes the Euclidean distance formula and precomputes the norm of the original vectors. This approach optimizes the distance calculation by reducing it to a simple dot product operation, which can potentially speed up the computation in certain scenarios. However, this method comes with trade-offs, including additional memory usage and increased runtime overhead. Therefore, we generally do not recommend using this approach.
+
+
+```shell
+cd build/tests/
+./test_nsg_optimized_search DATA_PATH QUERY_PATH NSG_PATH SEARCH_L SEARCH_K RESULT_PATH
+```
 
 ***NOTE:** Only data-type int32 and float32 are supported for now.*
 
