@@ -643,6 +643,10 @@ namespace efanna2e
         continue;
 #ifdef USE_SSE
       _mm_prefetch(opt_graph_ + node_size * id, _MM_HINT_T0);
+#else
+#ifdef COMPILER_GCC
+      __builtin_prefetch(opt_graph_ + node_size * id, 0, 0); 
+#endif
 #endif
     }
     L = 0;
@@ -673,6 +677,10 @@ namespace efanna2e
         unsigned n = retset[k].id;
 #ifdef USE_SSE
         _mm_prefetch(opt_graph_ + node_size * n + data_len, _MM_HINT_T0);
+#else
+#ifdef COMPILER_GCC
+        __builtin_prefetch(opt_graph_ + node_size * n + data_len, 0, 0); 
+#endif
 #endif
         unsigned *neighbors = (unsigned *)(opt_graph_ + node_size * n + data_len);
         unsigned MaxM = *neighbors;
@@ -680,6 +688,10 @@ namespace efanna2e
         for (unsigned m = 0; m < MaxM; ++m)
 #ifdef USE_SSE
           _mm_prefetch(opt_graph_ + node_size * neighbors[m], _MM_HINT_T0);
+#else
+#ifdef COMPILER_GCC
+          __builtin_prefetch(opt_graph_ + node_size * neighbors[m], 0, 0); 
+#endif
 #endif
         for (unsigned m = 0; m < MaxM; ++m)
         {
