@@ -140,11 +140,10 @@ For example, if your features are of dimension 70, then it should be extend to d
 
 ### NSG Building
 
-We use [efanna_graph](https://github.com/ZJULearning/efanna_graph) to build the kNN graph.
+We use efanna_graph to build the kNN graph， it is also included in NSGFlex.
 
 #### Step 1. Build kNN Graph
 
-+ Tool: [efanna_graph](https://github.com/ZJULearning/efanna_graph)
 + Parameters:
 
 | Dataset |  K  |  L  | iter |  S |  R  |
