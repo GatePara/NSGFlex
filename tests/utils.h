@@ -1,6 +1,7 @@
 #include <iostream> // std::cout, std::endl
 #include <fstream>  // std::ifstream
 #include <cstdlib>  // std::exit
+#include <iomanip>
 
 void load_data(char *filename, float *&data, unsigned &num, unsigned &dim)
 { // load data with sift pattern
@@ -11,7 +12,7 @@ void load_data(char *filename, float *&data, unsigned &num, unsigned &dim)
         exit(-1);
     }
     in.read((char *)&dim, 4);
-    std::cout << "data dimension: " << dim << std::endl;
+    // std::cout << "data dimension: " << dim << std::endl;
     in.seekg(0, std::ios::end);
     std::ios::pos_type ss = in.tellg();
     size_t fsize = (size_t)ss;
@@ -42,4 +43,24 @@ void save_result(char *filename, std::vector<std::vector<unsigned>> &results)
         out.write((char *)results[i].data(), GK * sizeof(unsigned));
     }
     out.close();
+}
+
+void print_csv_header() {
+    std::cout << std::left;
+    std::cout << std::setw(12) << "L" << ","
+              << std::setw(12) << "time" << ","
+              << std::setw(12) << "querynum" << ","
+              << std::setw(12) << "qps" << ","
+              << std::setw(12) << "recall"
+              << std::endl;
+}
+
+void print_csv_row(unsigned L, double time, unsigned query_num, double qps, double recall) {
+    std::cout << std::fixed << std::setprecision(6);
+    std::cout << std::setw(12) << L << ","
+              << std::setw(12) << time << ","
+              << std::setw(12) << query_num << ","
+              << std::setw(12) << qps << ","
+              << std::setw(12) << recall
+              << std::endl;
 }

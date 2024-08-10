@@ -57,8 +57,8 @@ int main(int argc, char **argv)
   }
   auto e = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> diff = e - s;
-  std::cout << "time,querynum,qps" << std::endl;
-  std::cout << diff.count() << "," << query_num << "," << query_num / diff.count() << std::endl;
+  print_csv_header();
+  print_csv_row(L, diff.count(), query_num, query_num / diff.count(), 0);
 
   save_result(argv[6], res);
 
