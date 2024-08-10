@@ -15,14 +15,6 @@ int main(int argc, char **argv)
               << std::endl;
     exit(-1);
   }
-  float *data_load = NULL;
-  unsigned points_num, dim;
-  load_data(argv[1], data_load, points_num, dim);
-  float *query_load = NULL;
-  unsigned query_num, query_dim;
-  load_data(argv[2], query_load, query_num, query_dim);
-  assert(dim == query_dim);
-
   unsigned L = (unsigned)atoi(argv[4]);
   unsigned K = (unsigned)atoi(argv[5]);
 
@@ -31,6 +23,14 @@ int main(int argc, char **argv)
     std::cout << "search_L cannot be smaller than search_K!" << std::endl;
     exit(-1);
   }
+  
+  float *data_load = NULL;
+  unsigned points_num, dim;
+  load_data(argv[1], data_load, points_num, dim);
+  float *query_load = NULL;
+  unsigned query_num, query_dim;
+  load_data(argv[2], query_load, query_num, query_dim);
+  assert(dim == query_dim);
 
   // data_load = efanna2e::data_align(data_load, points_num, dim);//one must
   // align the data before build query_load = efanna2e::data_align(query_load,
@@ -56,6 +56,9 @@ int main(int argc, char **argv)
   std::cout << diff.count() << "," << query_num << "," << query_num / diff.count() << std::endl;
 
   save_result(argv[6], res);
+
+  delete[] data_load;
+  delete[] query_load;
 
   return 0;
 }
