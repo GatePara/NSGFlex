@@ -530,17 +530,17 @@ namespace efanna2e
   {
 
 #ifdef USE_SSE
-      _mm_prefetch(&final_graph_[ep_], _MM_HINT_T0);
+    _mm_prefetch(&final_graph_[ep_], _MM_HINT_T0);
 #else
 #ifdef COMPILER_GCC
-      __builtin_prefetch(&final_graph_[ep_], 0, 0); 
+    __builtin_prefetch(&final_graph_[ep_], 0, 2);
 #endif
 #endif
 
     const unsigned L = parameters.Get<unsigned>("L_search");
     data_ = x;
     std::vector<Neighbor> retset(L + 1);
-    std::vector<unsigned> init_ids(L);
+    std::vector<unsigned> init_ids(L + 1, 0);
     // boost::dynamic_bitset<> flags{nd_, 0};
     std::vector<bool> flags(nd_, false);
     // std::mt19937 rng(rand());
@@ -563,21 +563,21 @@ namespace efanna2e
       tmp_l++;
     }
 #ifdef USE_SSE
-      _mm_prefetch(data_ + dimension_ * (init_ids[0]), _MM_HINT_T0);
+    _mm_prefetch(data_ + dimension_ * (init_ids[0]), _MM_HINT_T0);
 #else
 #ifdef COMPILER_GCC
-      __builtin_prefetch(data_ + dimension_ * (init_ids[0]), 0, 2); 
+    __builtin_prefetch(data_ + dimension_ * (init_ids[0]), 0, 0);
 #endif
 #endif
 
-    for (unsigned i = 0; i < init_ids.size(); i++)
+    for (unsigned i = 0; i < init_ids.size() - 1; i++)
     {
       unsigned id = init_ids[i];
 #ifdef USE_SSE
-      _mm_prefetch(data_ + dimension_ * (id+1), _MM_HINT_T0);
+      _mm_prefetch(data_ + dimension_ * (init_ids[i + 1]), _MM_HINT_T0);
 #else
 #ifdef COMPILER_GCC
-      __builtin_prefetch(data_ + dimension_ * (id+1), 0, 0); 
+      __builtin_prefetch(data_ + dimension_ * (init_ids[i + 1]), 0, 0);
 #endif
 #endif
       float dist =
@@ -597,22 +597,22 @@ namespace efanna2e
         retset[k].flag = false;
         unsigned n = retset[k].id;
 #ifdef USE_SSE
-      _mm_prefetch(&final_graph_[n], _MM_HINT_T0);
-      _mm_prefetch(data_ + dimension_ * final_graph_[n][0], _MM_HINT_T0);
+        _mm_prefetch(&final_graph_[n], _MM_HINT_T0);
+        _mm_prefetch(data_ + dimension_ * final_graph_[n][0], _MM_HINT_T0);
 #else
 #ifdef COMPILER_GCC
-      __builtin_prefetch(&final_graph_[n], 0, 0); 
-      __builtin_prefetch(data_ + dimension_ * final_graph_[n][0], 0, 0); 
+        __builtin_prefetch(&final_graph_[n], 0, 2);
+        __builtin_prefetch(data_ + dimension_ * final_graph_[n][0], 0, 0);
 #endif
 #endif
 
         for (unsigned m = 0; m < final_graph_[n].size(); ++m)
         {
 #ifdef USE_SSE
-      _mm_prefetch(data_ + dimension_ * final_graph_[n][m+1], _MM_HINT_T0);
+          _mm_prefetch(data_ + dimension_ * final_graph_[n][m + 1], _MM_HINT_T0);
 #else
 #ifdef COMPILER_GCC
-      __builtin_prefetch(data_ + dimension_ * final_graph_[n][m+1], 0, 0); 
+          __builtin_prefetch(data_ + dimension_ * final_graph_[n][m + 1], 0, 0);
 #endif
 #endif
           unsigned id = final_graph_[n][m];
@@ -684,7 +684,7 @@ namespace efanna2e
       _mm_prefetch(opt_graph_ + node_size * id, _MM_HINT_T0);
 #else
 #ifdef COMPILER_GCC
-      __builtin_prefetch(opt_graph_ + node_size * id, 0, 0); 
+      __builtin_prefetch(opt_graph_ + node_size * id, 0, 0);
 #endif
 #endif
     }
@@ -718,7 +718,7 @@ namespace efanna2e
         _mm_prefetch(opt_graph_ + node_size * n + data_len, _MM_HINT_T0);
 #else
 #ifdef COMPILER_GCC
-        __builtin_prefetch(opt_graph_ + node_size * n + data_len, 0, 0); 
+        __builtin_prefetch(opt_graph_ + node_size * n + data_len, 0, 0);
 #endif
 #endif
         unsigned *neighbors = (unsigned *)(opt_graph_ + node_size * n + data_len);
@@ -729,7 +729,7 @@ namespace efanna2e
           _mm_prefetch(opt_graph_ + node_size * neighbors[m], _MM_HINT_T0);
 #else
 #ifdef COMPILER_GCC
-          __builtin_prefetch(opt_graph_ + node_size * neighbors[m], 0, 0); 
+          __builtin_prefetch(opt_graph_ + node_size * neighbors[m], 0, 0);
 #endif
 #endif
         for (unsigned m = 0; m < MaxM; ++m)
