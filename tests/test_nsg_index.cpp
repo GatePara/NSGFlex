@@ -4,7 +4,6 @@
 
 #include <efanna2e/index_nsg.h>
 #include <efanna2e/util.h>
-#include "utils.h"
 
 int main(int argc, char** argv) {
   if (argc != 7) {
@@ -14,7 +13,7 @@ int main(int argc, char** argv) {
   }
   float* data_load = NULL;
   unsigned points_num, dim;
-  load_data(argv[1], data_load, points_num, dim);
+  efanna2e::load_fvecs(argv[1], data_load, points_num, dim);
 
   std::string nn_graph_path(argv[2]);
   unsigned L = (unsigned)atoi(argv[3]);

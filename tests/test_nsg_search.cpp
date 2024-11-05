@@ -4,7 +4,6 @@
 
 #include <efanna2e/index_nsg.h>
 #include <efanna2e/util.h>
-#include "utils.h"
 
 int main(int argc, char **argv)
 {
@@ -26,10 +25,10 @@ int main(int argc, char **argv)
 
   float *data_load = NULL;
   unsigned points_num, dim;
-  load_data(argv[1], data_load, points_num, dim);
+  efanna2e::load_fvecs(argv[1], data_load, points_num, dim);
   float *query_load = NULL;
   unsigned query_num, query_dim;
-  load_data(argv[2], query_load, query_num, query_dim);
+  efanna2e::load_fvecs(argv[2], query_load, query_num, query_dim);
   assert(dim == query_dim);
 
   // data_load = efanna2e::data_align(data_load, points_num, dim);//one must
@@ -53,10 +52,10 @@ int main(int argc, char **argv)
   auto e = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> diff = e - s;
 
-  print_csv_header();
-  print_csv_row(L, diff.count(), query_num, query_num / diff.count(), 0);
+  efanna2e::print_csv_header();
+  efanna2e::print_csv_row(L, diff.count(), query_num, query_num / diff.count(), 0);
 
-  save_result(argv[6], res);
+  efanna2e::save_result(argv[6], res);
 
   delete[] data_load;
   delete[] query_load;

@@ -2,11 +2,11 @@
 // Motified by WuTong on 2024/8/8.
 //
 
-#include <efanna2e/platform.h>
+
 
 #ifndef EFANNA2E_DISTANCE_H
 #define EFANNA2E_DISTANCE_H
-
+#include <efanna2e/platform.h>
 #include <iostream>
 namespace efanna2e{
   enum Metric{

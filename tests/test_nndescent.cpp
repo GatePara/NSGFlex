@@ -5,13 +5,12 @@
 #include <efanna2e/index_graph.h>
 #include <efanna2e/index_random.h>
 #include <efanna2e/util.h>
-#include "utils.h"
 
 int main(int argc, char** argv){
   if(argc!=8){std::cout<< argv[0] <<" data_file save_graph K L iter S R"<<std::endl; exit(-1);}
   float* data_load = NULL;
   unsigned points_num, dim;
-  load_data(argv[1], data_load, points_num, dim);
+  efanna2e::load_fvecs(argv[1], data_load, points_num, dim);
   char* graph_filename = argv[2];
   unsigned K = (unsigned)atoi(argv[3]);
   unsigned L = (unsigned)atoi(argv[4]);

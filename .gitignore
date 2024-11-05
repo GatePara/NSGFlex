@@ -1,3 +1,7 @@
 build/
 .vscode/
 index/
+
+*.fvecs
+*.graph
+*.nsg
