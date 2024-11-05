@@ -1,4 +1,4 @@
-# NSGFlex: Navigating Spread-out Graph for Approximate Nearest Neighbor Search with Enhanced Flexibility
+# FlexNsg: Navigating Spread-out Graph for Approximate Nearest Neighbor Search with Enhanced Flexibility
 
 Table of Contents
 =================
@@ -19,9 +19,9 @@ Table of Contents
 
 ## Introduction
 
-**NSGFlex** is an efficient open-source library for Approximate Nearest Neighbor Search (ANNS) that operates seamlessly across a variety of computing environments without any reliance on third-party runtime libraries, including but not limited to x86 and ARM architectures.
+**FlexNsg** is an efficient open-source library for Approximate Nearest Neighbor Search (ANNS) that operates seamlessly across a variety of computing environments without any reliance on third-party runtime libraries, including but not limited to x86 and ARM architectures.
 
-**NSGFlex** can build KNN graphs from datasets and transform them into NSG indices, facilitating efficient ANNS across different platforms. This comprehensive service design allows developers to quickly deploy and utilize NSGFlex, even on MacBook computers with M-series chips. This capability surpasses the original implementations of efanna and nsg, which depend on libraries such as Boost and BLAS and cannot be compiled on non-x86 platforms. 
+**FlexNsg** can build KNN graphs from datasets and transform them into NSG indices, facilitating efficient ANNS across different platforms. This comprehensive service design allows developers to quickly deploy and utilize NSGFlex, even on MacBook computers with M-series chips. This capability surpasses the original implementations of efanna and nsg, which depend on libraries such as Boost and BLAS and cannot be compiled on non-x86 platforms. 
 
 NSGFlex implements the algorithm described in the PVLDB paper - [Fast Approximate Nearest Neighbor Search With The Navigating Spread-out Graphs](http://www.vldb.org/pvldb/vol12/p461-fu.pdf). The core code of NSGFlex originates from the [efanna_graph](https://github.com/ZJULearning/efanna_graph) and [nsg](https://github.com/ZJULearning/nsg) projects, and we extend our gratitude to these developers for their diligent work. Building on this foundation, NSGFlex has been optimized for cross-platform adaptation and vectorization acceleration to enhance performance.
 
@@ -47,7 +47,7 @@ NSGFlex implements the algorithm described in the PVLDB paper - [Fast Approximat
 sudo apt-get install g++ cmake
 ```
 
-2. Compile NSGFlex:
+2. Compile FlexNsg:
 
 First, you should clone the code to your computer.
 ```shell
