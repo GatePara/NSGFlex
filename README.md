@@ -23,7 +23,7 @@ Table of Contents
 
 **FlexNsg** can build KNN graphs from datasets and transform them into NSG indices, facilitating efficient ANNS across different platforms. This comprehensive service design allows developers to quickly deploy and utilize NSGFlex, even on MacBook computers with M-series chips. This capability surpasses the original implementations of efanna and nsg, which depend on libraries such as Boost and BLAS and cannot be compiled on non-x86 platforms. 
 
-NSGFlex implements the algorithm described in the PVLDB paper - [Fast Approximate Nearest Neighbor Search With The Navigating Spread-out Graphs](http://www.vldb.org/pvldb/vol12/p461-fu.pdf). The core code of NSGFlex originates from the [efanna_graph](https://github.com/ZJULearning/efanna_graph) and [nsg](https://github.com/ZJULearning/nsg) projects, and we extend our gratitude to these developers for their diligent work. Building on this foundation, NSGFlex has been optimized for cross-platform adaptation and vectorization acceleration to enhance performance.
+FlexNsg implements the algorithm described in the PVLDB paper - [Fast Approximate Nearest Neighbor Search With The Navigating Spread-out Graphs](http://www.vldb.org/pvldb/vol12/p461-fu.pdf). The core code of NSGFlex originates from the [efanna_graph](https://github.com/ZJULearning/efanna_graph) and [nsg](https://github.com/ZJULearning/nsg) projects, and we extend our gratitude to these developers for their diligent work. Building on this foundation, NSGFlex has been optimized for cross-platform adaptation and vectorization acceleration to enhance performance.
 
 
 ### Highlights of NSGFlex:
